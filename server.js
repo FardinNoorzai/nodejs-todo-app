@@ -28,6 +28,8 @@ mongoose.connect(process.env.MONGO_URI, {
 const userRoutes = require('./routes/user_routes');
 app.use('/api/users', userRoutes);
 
+const taskRoutes = require('./routes/task_routes'); 
+app.use('/api/tasks', taskRoutes);
 
 
 const PORT = process.env.PORT || 3000;
