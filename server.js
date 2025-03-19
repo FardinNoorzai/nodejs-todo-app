@@ -2,9 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
-
 const app = express();
+
 app.use(express.json());
 const logger = (req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
@@ -26,12 +25,11 @@ mongoose.connect(process.env.MONGO_URI, {
     console.log('Error connecting to MongoDB', err);
 });
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the my simple crude api');
-});
+const userRoutes = require('./routes/user_routes');
+app.use('/api/users', userRoutes);
 
-const userRoutes = require('./routes/user');
-app.use('/users', userRoutes);
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
